@@ -3,28 +3,30 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-var itens = ["buy food", "cook food", "eat food"];
+let itens = ["buy food", "cook food", "eat food"];
 
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended:true}));
 
+app.use(express.static("public"));
+
 app.get("/", function (req, res) {
-    var today = new Date();
-    var options = {
+    let today = new Date();
+    let options = {
         weekDate: "long",
         day: "numeric",
         month: "long",
         year: "numeric"
     }
 
-    var day = today.toLocaleDateString("pt-BR", options);
+    let day = today.toLocaleDateString("pt-BR", options);
 
     res.render("list", { tipoDeDia: day , newItem: itens});
 });
 
 app.post("/", function(req,res){
-    var item = req.body.newItem;
+    let item = req.body.newItem;
     console.log(item +" inserido");
     itens.push(item);
     res.redirect("/");
