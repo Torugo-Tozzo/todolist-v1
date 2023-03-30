@@ -5,6 +5,18 @@
     <title>TO do LIST</title>
 </head>
 <body>
-    <h1>É <%= tipoDeDia %>!</h1>
+    <h1>Hoje é <%= tipoDeDia %>!</h1>
+
+    <ul>
+        <% for(var i = 0; i < newItem.length; i++){ %>
+            <li> <%= newItem[i] %></li>
+        <% } %>    
+    </ul>
+
+    <form action="/" method="post">
+        <input type="text" name="newItem">
+        <button type="submit">send</button>
+    </form>
+   
 </body>
 </html>

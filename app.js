@@ -3,40 +3,31 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+var itens = ["buy food", "cook food", "eat food"];
+
 app.set('view engine', 'ejs');
+
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.get("/", function (req, res) {
     var today = new Date();
-    var day = "";
-
-    switch (today.getDay()) {
-        case 0:
-            day = "Domiguim";
-            break;
-        case 1:
-            day = "segundona braba";
-            break;
-        case 2:
-            day = "terça dos cria";
-            break;
-        case 3:
-            day = "quartinha de lei";
-            break;
-        case 4:
-            day = "quinta pré sexta";
-            break;
-        case 5:
-            day = "Sexta feira sua linda";
-            break;
-        case 6:
-            day = "Sabadim relax";
-            break;
-
-        default:
-            break;
+    var options = {
+        weekDate: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
     }
 
-    res.render("list", { tipoDeDia: day });
+    var day = today.toLocaleDateString("pt-BR", options);
+
+    res.render("list", { tipoDeDia: day , newItem: itens});
+});
+
+app.post("/", function(req,res){
+    var item = req.body.newItem;
+    console.log(item +" inserido");
+    itens.push(item);
+    res.redirect("/");
 });
 
 app.listen(3000, function () {
