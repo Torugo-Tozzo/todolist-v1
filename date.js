@@ -1,14 +1,20 @@
-module.exports = getDate;
-
-function getDate() {
+exports.getDate = function() {
     let today = new Date();
     let options = {
-        weekDate: "long",
+        weekday: "long",
         day: "numeric",
         month: "long",
         year: "numeric"
     }
 
-    let day = today.toLocaleDateString("pt-BR", options);
-    return day;
+    return today.toLocaleDateString("pt-BR", options); 
+}
+
+exports.getDay = function() {
+    let today = new Date();
+    let options = {
+        weekday: "long"
+    }
+
+    return today.toLocaleDateString("pt-BR", options); 
 }
